@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:paddingHorizontal="20dp"
+    android:clipToPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_body"
+        android:clickable="true"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:clipToPadding="false"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="40dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/shape_rectangle_r20"
+        android:backgroundTint="#ff7c91"
+        app:layout_constraintWidth_max="360dp"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:letterSpacing="-0.02"
+            tools:text="내용"
+            android:textSize="14dp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_positive"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="확인"
+            android:textSize="14dp"
+            android:textColor="#ff7c91"
+            android:textStyle="bold"
+            app:cornerRadius="20dp"
+            app:backgroundTint="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/tv_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

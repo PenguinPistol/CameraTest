@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="isSelect"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_rectangle_r20"
+        tools:backgroundTint="#333333">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_result"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/shape_rectangle_r20_outline"
+            app:tint="#ff7c91"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="@id/iv_result"
+            app:layout_constraintStart_toStartOf="@id/iv_result"
+            app:layout_constraintBottom_toBottomOf="@id/iv_result"
+            app:layout_constraintEnd_toEndOf="@id/iv_result"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
