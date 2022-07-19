@@ -40,12 +40,12 @@ import me.penguinpistol.cameratest.R;
 
 public class CameraXHelper {
     private static final Size CAPTURE_SIZE = new Size(720, 1280);
-    private static final Size IMAGE_SIZE = new Size(360, 640);
+    private static final Size IMAGE_SIZE = new Size(720, 1280);
 
     private static final String FILE_NAME_FORMAT    = "yyyyMMddHHmmssSSS";
     private static final int TAKE_PICTURE_TIME      = 5000;     // 자동촬영 시간
     private static final int TAKE_PICTURE_DELAY     = 500;      // 자동촬영 시작 딜레이
-    private static final int TAKE_PICTURE_PERIOD    = 250;      // 자동촬영 간격
+    private static final int TAKE_PICTURE_PERIOD    = 100;      // 자동촬영 간격
 
     private PreviewView mPreviewView;
     private ImageCapture mImageCapture;
@@ -84,6 +84,7 @@ public class CameraXHelper {
             @Override
             public void onFailure(DetectionFailure reason) {
 //                Log.d("CameraXHelper", reason.message);
+                graphicOverlay.setFailure(reason);
             }
         });
         mAnalyzer.setImageSize(IMAGE_SIZE);

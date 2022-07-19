@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LabTakePictureActivity">
+    tools:context=".TakePictureV1Activity">
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
@@ -12,6 +12,6 @@
         android:id="@+id/nav_host"
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/lab_take_picture_graph"/>
+        app:navGraph="@navigation/v1_graph"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

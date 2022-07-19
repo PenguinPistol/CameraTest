@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="me.penguinpistol.cameratest.camera.PhotoType"/>
+        <variable
+            name="photoType"
+            type="PhotoType" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guide_container_start"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guide_container_end"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp"/>
+
+        <TextView
+            android:id="@+id/tv_label_30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="188dp"
+            android:text='@{photoType == PhotoType.LEFT ? "좌 30도" : "우 30도"}'
+            tools:text="좌 30도"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@id/barrier_30"
+            app:layout_constraintStart_toStartOf="@id/guide_container_start"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_photo_30"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_take_picture_result"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/barrier_45"/>
+
+        <TextView
+            android:id="@+id/tv_empty_30"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:text="감지된 사진이 없습니다."
+            android:textSize="16dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/barrier_45"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="list_photo_30, tv_empty_30"/>
+
+        <TextView
+            android:id="@+id/tv_label_45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text='@{photoType == PhotoType.LEFT ? "좌 45도" : "우 45도"}'
+            tools:text="좌 45도"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@id/barrier_45"
+            app:layout_constraintStart_toStartOf="@id/guide_container_start"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_photo_45"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:orientation="horizontal"
+            tools:listitem="@layout/item_take_picture_result"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/barrier_30"
+            app:layout_constraintBottom_toTopOf="@id/btn_retake"/>
+
+        <TextView
+            android:id="@+id/tv_empty_45"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:text="감지된 사진이 없습니다."
+            android:textSize="16dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/barrier_30"
+            app:layout_constraintBottom_toTopOf="@id/btn_retake"/>
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier_45"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="list_photo_45, tv_empty_45"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_retake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="retake"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_next"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="next"
+            app:layout_constraintStart_toEndOf="@id/btn_retake"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btn_retake"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

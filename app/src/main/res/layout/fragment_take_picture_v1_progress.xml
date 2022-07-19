@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="분석중..."
+        android:text="적절한 사진 골라내는 중..."
+        android:textSize="20dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

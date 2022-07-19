@@ -1,4 +1,4 @@
-package me.penguinpistol.cameratest;
+package me.penguinpistol.cameratest.common;
 
 import android.graphics.Rect;
 import android.view.View;

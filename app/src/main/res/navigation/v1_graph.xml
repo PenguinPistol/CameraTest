@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/takePictureFragment"
-        android:name="me.penguinpistol.cameratest.TakePictureFragment"
+        android:name="me.penguinpistol.cameratest.v1.TakePictureFragment"
         android:label="fragment_take_picture"
-        tools:layout="@layout/fragment_take_picture" >
+        tools:layout="@layout/fragment_take_picture_v1" >
 
         <action
             android:id="@+id/action_result_front"
@@ -18,20 +18,21 @@
 
     <fragment
         android:id="@+id/takePictureResultFrontFragment"
-        android:name="me.penguinpistol.cameratest.TakePictureResultFrontFragment"
+        android:name="me.penguinpistol.cameratest.v1.TakePictureResultFrontFragment"
         android:label="TakePictureResultFrontFragment"
-        tools:layout="@layout/fragment_take_picture_result_front">
+        tools:layout="@layout/fragment_take_picture_v1_result_front">
 
         <action
             android:id="@+id/action_take_side"
-            app:destination="@id/takePictureSideFragment" />
+            app:destination="@id/takePictureSideFragment"
+            app:launchSingleTop="true"/>
     </fragment>
 
     <fragment
         android:id="@+id/takePictureSideFragment"
-        android:name="me.penguinpistol.cameratest.TakePictureSideFragment"
+        android:name="me.penguinpistol.cameratest.v1.TakePictureSideFragment"
         android:label="TakePictureSideFragment"
-        tools:layout="@layout/fragment_take_picture_side">
+        tools:layout="@layout/fragment_take_picture_v1_side">
         <argument
             android:name="photoType"
             android:defaultValue="0"
@@ -43,27 +44,37 @@
 
     <fragment
         android:id="@+id/takePictureProgressFragment"
-        android:name="me.penguinpistol.cameratest.TakePictureProgressFragment"
+        android:name="me.penguinpistol.cameratest.v1.TakePictureProgressFragment"
         android:label="TakePictureProgressFragment"
-        tools:layout="@layout/fragment_take_picture_progress">
+        tools:layout="@layout/fragment_take_picture_v1_progress">
         <action
             android:id="@+id/action_progress_complete"
             app:destination="@id/takePictureResultSideFragment"
-            app:popUpToInclusive="true"
             app:popUpTo="@id/takePictureSideFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/takePictureResultSideFragment"
-        android:name="me.penguinpistol.cameratest.TakePictureResultSideFragment"
+        android:name="me.penguinpistol.cameratest.v1.TakePictureResultSideFragment"
         android:label="TakePictureResultSideFragment"
-        tools:layout="@layout/fragment_take_picture_result_side">
+        tools:layout="@layout/fragment_take_picture_v1_result_side">
         <argument
             android:name="photoDirection"
-            android:defaultValue="-2"
+            android:defaultValue="-1"
             app:argType="integer"/>
         <action
-            android:id="@+id/action_retake"
-            app:destination="@id/takePictureSideFragment" />
+            android:id="@+id/action_next_side"
+            app:destination="@id/takePictureSideFragment"
+            app:launchSingleTop="true"/>
+        <action
+            android:id="@+id/action_result_final"
+            app:destination="@id/takePictureResultFragment"
+            app:popUpTo="@id/takePictureFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/takePictureResultFragment"
+        android:name="me.penguinpistol.cameratest.v1.TakePictureResultFragment"
+        android:label="TakePictureResultFragment"
+        tools:layout="@layout/fragment_take_picture_v1_result"/>
 </navigation>

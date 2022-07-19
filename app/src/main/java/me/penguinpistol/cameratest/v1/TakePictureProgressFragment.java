@@ -1,4 +1,4 @@
-package me.penguinpistol.cameratest;
+package me.penguinpistol.cameratest.v1;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,28 +12,17 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.mlkit.vision.common.InputImage;
-import com.google.mlkit.vision.face.Face;
-import com.google.mlkit.vision.face.FaceDetection;
-import com.google.mlkit.vision.face.FaceDetector;
-import com.google.mlkit.vision.face.FaceDetectorOptions;
-
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-import me.penguinpistol.cameratest.camera.FaceChecker;
-import me.penguinpistol.cameratest.camera.FaceDirection;
+import me.penguinpistol.cameratest.R;
 import me.penguinpistol.cameratest.camera.PhotoType;
-import me.penguinpistol.cameratest.camera.SideFaceChecker;
-import me.penguinpistol.cameratest.databinding.FragmentTakePictureProgressBinding;
+import me.penguinpistol.cameratest.databinding.FragmentTakePictureV1ProgressBinding;
 
 public class TakePictureProgressFragment extends Fragment {
 
-    private FragmentTakePictureProgressBinding mBinding;
+    private FragmentTakePictureV1ProgressBinding mBinding;
     private TakePictureViewModel mViewModel;
 
-    private ArrayList<Uri> mTakePhotoList;
     private PhotoType mPhotoType;
 
     @Override
@@ -42,22 +31,16 @@ public class TakePictureProgressFragment extends Fragment {
         Bundle args = getArguments();
         if(args != null) {
             mPhotoType = (PhotoType) args.getSerializable(TakePictureViewModel.KEY_SIDE_TYPE);
-            mTakePhotoList = args.getParcelableArrayList(TakePictureViewModel.KEY_SIDE_PHOTO_LIST);
         }
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentTakePictureProgressBinding.inflate(inflater, container, false);
+        mBinding = FragmentTakePictureV1ProgressBinding.inflate(inflater, container, false);
         mViewModel = new ViewModelProvider(requireActivity()).get(TakePictureViewModel.class);
 
-        if(mTakePhotoList == null) {
-            mViewModel.getNavController().navigateUp();
-            return null;
-        }
-
-        mViewModel.startSidePhotoAnalysis(requireActivity(), mPhotoType, mTakePhotoList, this::onComplete);
+        mViewModel.startSidePhotoAnalysis(requireActivity(), mPhotoType, this::onComplete);
 
         return mBinding.getRoot();
     }

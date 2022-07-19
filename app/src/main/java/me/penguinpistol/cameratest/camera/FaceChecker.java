@@ -64,8 +64,8 @@ public class FaceChecker {
         }
 
         return checkAngle(face.getHeadEulerAngleX(), face.getHeadEulerAngleY(), face.getHeadEulerAngleZ())
-                && checkWidthRatio(faceRect.width())
                 && checkPosition(faceRect)
+                && checkWidthRatio(faceRect.width())
                 && checkEyesOpen(leftEyeOpen, rightEyeOpen)
                 ;
     }
@@ -83,28 +83,37 @@ public class FaceChecker {
 
         boolean checkDownX = (-DetectionErrorValue.ANGLE_XZ.getValue() < x);
         boolean checkUpX = (x < DetectionErrorValue.ANGLE_XZ.getValue());
-        boolean checkZ = (-DetectionErrorValue.ANGLE_XZ.getValue() < z) && (z < DetectionErrorValue.ANGLE_XZ.getValue());
+        boolean checkMinZ = -DetectionErrorValue.ANGLE_XZ.getValue() < z;
+        boolean checkMaxZ = z < DetectionErrorValue.ANGLE_XZ.getValue();
         boolean checkMinY = mDirection.checkMin(y, DetectionErrorValue.ANGLE_Y.getValue());
         boolean checkMaxY = mDirection.checkMax(y, DetectionErrorValue.ANGLE_Y.getValue());
 
         if(!checkDownX) {
-            failureReason = DetectionFailure.ANGLE_X_UP;
+            failureReason = DetectionFailure.PITCH_CW;
         } else if(!checkUpX) {
-            failureReason = DetectionFailure.ANGLE_X_DOWN;
-        } else if(!checkZ) {
-            failureReason = DetectionFailure.ANGLE_Z;
+            failureReason = DetectionFailure.PITCH_CCW;
+        } else if(!checkMinZ) {
+            failureReason = DetectionFailure.ROLL_CW;
+        } else if(!checkMaxZ) {
+            failureReason = DetectionFailure.ROLL_CCW;
         } else if(!checkMinY) {
-            failureReason = DetectionFailure.TURN_LEFT;
+            failureReason = DetectionFailure.YAW_CW;
         } else if(!checkMaxY) {
-            failureReason = DetectionFailure.TURN_RIGHT;
+            failureReason = DetectionFailure.YAW_CCW;
         }
 
         if(isDebug) {
             debugText += String.format(Locale.getDefault(), "Angle[%f, %f, %f]\n", x, y, z);
-            debugText += String.format(Locale.getDefault(), "Angle Check[x: %b / z: %b / minY: %b / maxY: %b]\n", (checkDownX && checkUpX), checkZ, checkMinY, checkMaxY);
+            debugText += String.format(
+                    Locale.getDefault(),
+                    "Angle Check[x: %b / z: %b / minY: %b / maxY: %b]\n",
+                    (checkDownX && checkUpX),
+                    (checkMinZ && checkMaxZ),
+                    checkMinY,
+                    checkMaxY);
         }
 
-        return checkDownX && checkUpX && checkZ && checkMinY && checkMaxY;
+        return checkDownX && checkUpX && checkMinZ && checkMaxZ && checkMinY && checkMaxY;
     }
 
     /**

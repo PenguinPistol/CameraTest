@@ -42,9 +42,10 @@ public class GraphicOverlay extends View {
     float scaleX = 0;
     float scaleY = 0;
 
-    private final Paint reasonPaint;
-    private Rect reasonBound;
-    private String reasonText = "";
+    private final Paint failurePaint;
+    private Rect failureBound;
+    private Drawable failureImage;
+    private String failureText = "";
 
     // 디버그용
     private final Paint debugPaint;
@@ -79,10 +80,10 @@ public class GraphicOverlay extends View {
         // TODO 레이아웃에서 변경할 수 있도록 수정필요
         targetDrawable = ContextCompat.getDrawable(context, R.drawable.ic_face_rect_inner);
 
-        reasonPaint = new Paint();
-        reasonPaint.setColor(Color.parseColor("#FFFF3333"));
-        reasonPaint.setTextSize(20 * density);
-        reasonBound = new Rect();
+        failurePaint = new Paint();
+        failurePaint.setColor(Color.parseColor("#FFFF3333"));
+        failurePaint.setTextSize(20 * density);
+        failureBound = new Rect();
 
         // 디버그 용 데이터
         debugPaint = new Paint();
@@ -144,37 +145,56 @@ public class GraphicOverlay extends View {
 
         if(targetDrawable != null) {
             targetDrawable.draw(canvas);
-
         }
 
-        if(landmark != null) {
-            faceAreaPath.reset();
-            for(int i = 0; i < landmark.size(); i++) {
-                PointF p = landmark.get(i);
-                if(i == 0) {
-                    faceAreaPath.moveTo(p.x, p.y);
-                } else {
-                    faceAreaPath.lineTo(p.x, p.y);
-                }
-            }
-            faceAreaPath.close();
+//        if(landmark != null) {
+//            faceAreaPath.reset();
+//            for(int i = 0; i < landmark.size(); i++) {
+//                PointF p = landmark.get(i);
+//                if(i == 0) {
+//                    faceAreaPath.moveTo(p.x, p.y);
+//                } else {
+//                    faceAreaPath.lineTo(p.x, p.y);
+//                }
+//            }
+//            faceAreaPath.close();
+//
+//            canvas.drawPath(faceAreaPath, faceAreaPaint);
+//        }
 
-            canvas.drawPath(faceAreaPath, faceAreaPaint);
-        }
-
-        if(reasonBound != null) {
+        if(failureBound != null) {
             canvas.drawText(
-                    reasonText,
-                    targetRectScaled.centerX() - (reasonBound.width() >> 1),
-                    targetRectScaled.centerY() + (reasonBound.height() >> 1),
-                    reasonPaint);
+                    failureText,
+                    targetRectScaled.centerX() - (failureBound.width() >> 1),
+                    targetRectScaled.centerY() + (failureBound.height() * 2),
+                    failurePaint);
+        }
+
+        if(failureImage != null) {
+            failureImage.draw(canvas);
         }
     }
 
-    public void setReason(String reason) {
-        this.reasonText = reason;
-        reasonPaint.getTextBounds(reason, 0, reason.length(), reasonBound);
-        invalidate();
+    public void setFailure(DetectionFailure failure) {
+        if(failure != null) {
+            failureText = failure.message;
+            failurePaint.getTextBounds(failureText, 0, failureText.length(), failureBound);
+            failureImage = null;
+            if (failure.imageRes != -1) {
+                failureImage = ContextCompat.getDrawable(getContext(), failure.imageRes);
+                if (failureImage != null) {
+                    int size = (int) (targetRectScaled.width() * 0.5f);
+                    int top = (int) targetRectScaled.centerY() - size;
+                    int left = (int) targetRectScaled.left + (size >> 1);
+                    failureImage.setBounds(
+                            left,
+                            top,
+                            left + size,
+                            top + size);
+                }
+            }
+            invalidate();
+        }
     }
 
     public void init(Size imageSize, RectF targetRect) {

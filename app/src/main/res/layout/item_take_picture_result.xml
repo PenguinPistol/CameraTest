@@ -2,6 +2,7 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="isSelect"
             type="Boolean" />
@@ -24,6 +25,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/shape_rectangle_r20_outline"
+            android:visibility="@{isSelect ? View.VISIBLE : View.GONE}"
+            tools:visibility="visible"
             app:tint="#ff7c91"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintTop_toTopOf="@id/iv_result"

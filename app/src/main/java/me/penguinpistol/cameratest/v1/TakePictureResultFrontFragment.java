@@ -1,4 +1,4 @@
-package me.penguinpistol.cameratest;
+package me.penguinpistol.cameratest.v1;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,12 +13,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Arrays;
+
+import me.penguinpistol.cameratest.R;
+import me.penguinpistol.cameratest.camera.FaceDirection;
 import me.penguinpistol.cameratest.camera.PhotoType;
-import me.penguinpistol.cameratest.databinding.FragmentTakePictureResultFrontBinding;
+import me.penguinpistol.cameratest.databinding.FragmentTakePictureV1ResultFrontBinding;
 
 public class TakePictureResultFrontFragment extends Fragment {
 
-    private FragmentTakePictureResultFrontBinding mBinding;
+    private FragmentTakePictureV1ResultFrontBinding mBinding;
     private TakePictureViewModel mViewModel;
     private Uri mImageUri;
 
@@ -34,7 +38,7 @@ public class TakePictureResultFrontFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = FragmentTakePictureResultFrontBinding.inflate(inflater, container, false);
+        mBinding = FragmentTakePictureV1ResultFrontBinding.inflate(inflater, container, false);
         mViewModel = new ViewModelProvider(requireActivity()).get(TakePictureViewModel.class);
 
         if(mImageUri == null) {
@@ -50,9 +54,11 @@ public class TakePictureResultFrontFragment extends Fragment {
             mViewModel.getNavController().navigateUp();
         });
         mBinding.btnNext.setOnClickListener(v -> {
+            mViewModel.setParameterImage(FaceDirection.FRONT, mImageUri);
+            mViewModel.setTakePhoto(PhotoType.FRONT, Arrays.asList(mImageUri));
+
             Bundle args = new Bundle(1);
             args.putSerializable(TakePictureViewModel.KEY_SIDE_TYPE, PhotoType.LEFT);
-            mViewModel.removeFile(mImageUri);
             mViewModel.getNavController().navigate(R.id.action_take_side, args);
         });
 

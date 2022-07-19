@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
+    tools:context=".TakePictureV1Activity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/guideline_t"
+        app:layout_constraintGuide_percent="0"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/guideline_b"
+        app:layout_constraintGuide_percent="1"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/layout"
+        app:layout_constraintTop_toTopOf="@id/guideline_t"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_b">
+
+        <androidx.camera.view.PreviewView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/preview"/>
+
+        <me.penguinpistol.cameratest.camera.GraphicOverlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/graphic_overlay"/>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

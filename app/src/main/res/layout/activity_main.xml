@@ -1,17 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
+    android:paddingHorizontal="20dp"
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btn_start"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:text="Start"/>
+        android:id="@+id/btn_start_v1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="각도별 나눠서 촬영하기"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_start_v2"/>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <Button
+        android:id="@+id/btn_start_v2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="한번에 촬영하기"
+        app:layout_constraintTop_toBottomOf="@id/btn_start_v1"
+        app:layout_constraintBottom_toTopOf="@id/layout_options" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/layout_options"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_camera_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="카메라 올리기" />
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_square_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:visibility="gone"
+            android:text="1:1 카메라" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="머리각도 오차값 [0 ~ 20]"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_angle_xz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:value="10"
+            android:valueFrom="0"
+            android:valueTo="20"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="좌우각도 오차값 [0 ~ 20]"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_angle_y"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:value="5"
+            android:valueFrom="0"
+            android:valueTo="20"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="위치 오차값(정면사진) [0 ~ 50]"/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tickVisible="false"
+            android:stepSize="0.1"
+            android:value="10"
+            android:valueFrom="0"
+            android:valueTo="50"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
