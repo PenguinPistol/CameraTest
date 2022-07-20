@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 
-import me.penguinpistol.cameratest.camera.FaceDirection;
+import me.penguinpistol.cameratest.v1.camera.FaceDirection;
 import me.penguinpistol.cameratest.common.AnalysisParameter;
 import me.penguinpistol.cameratest.databinding.FragmentTakePictureV1ResultBinding;
 

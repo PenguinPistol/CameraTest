@@ -9,6 +9,38 @@
         android:id="@+id/takePictureFragment"
         android:name="me.penguinpistol.cameratest.v2.TakePictureFragment"
         android:label="TakePictureFragment"
-        tools:layout="@layout/fragment_take_picture_v2"/>
+        tools:layout="@layout/fragment_take_picture_v2">
+
+        <action
+            android:id="@+id/action_analysis"
+            app:destination="@id/takePictureProgressFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/takePictureProgressFragment"
+        android:name="me.penguinpistol.cameratest.v2.TakePictureProgressFragment"
+        android:label="TakePictureProgressFragment"
+        tools:layout="@layout/fragment_take_picture_v2_progress">
+
+        <action
+            android:id="@+id/action_result"
+            app:destination="@id/takePictureResultFragment"
+            app:popUpTo="@id/takePictureFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/takePictureResultFragment"
+        android:name="me.penguinpistol.cameratest.v2.TakePictureResultFragment"
+        android:label="TakePictureResultFragment"
+        tools:layout="@layout/fragment_take_picture_v2_result">
+
+        <action
+            android:id="@+id/action_retake"
+            app:destination="@id/takePictureFragment"
+            app:popUpTo="@id/takePictureFragment"/>
+
+    </fragment>
 
 </navigation>

@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import me.penguinpistol.cameratest.R;
 import me.penguinpistol.cameratest.TestOption;
-import me.penguinpistol.cameratest.camera.CameraXHelper;
+import me.penguinpistol.cameratest.v1.camera.CameraXHelper;
 import me.penguinpistol.cameratest.databinding.FragmentTakePictureV1Binding;
 
 public class TakePictureFragment extends Fragment {

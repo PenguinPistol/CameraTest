@@ -1,7 +1,4 @@
-package me.penguinpistol.cameratest.camera;
-
-import java.util.Arrays;
-import java.util.List;
+package me.penguinpistol.cameratest.v1.camera;
 
 public enum PhotoType {
     FRONT("정면", "")

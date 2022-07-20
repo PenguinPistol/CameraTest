@@ -16,7 +16,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.List;
 
-import me.penguinpistol.cameratest.camera.PhotoType;
+import me.penguinpistol.cameratest.v1.camera.PhotoType;
 import me.penguinpistol.cameratest.databinding.ActivityTakePictureV1Binding;
 import me.penguinpistol.cameratest.v1.TakePictureViewModel;
 

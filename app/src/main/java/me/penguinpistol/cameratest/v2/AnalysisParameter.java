@@ -1,11 +1,11 @@
-package me.penguinpistol.cameratest.common;
+package me.penguinpistol.cameratest.v2;
 
 import android.net.Uri;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import me.penguinpistol.cameratest.v1.camera.FaceDirection;
+import me.penguinpistol.cameratest.v2.camera.FaceDirection;
 
 public class AnalysisParameter {
     private final Map<FaceDirection, Uri> images;

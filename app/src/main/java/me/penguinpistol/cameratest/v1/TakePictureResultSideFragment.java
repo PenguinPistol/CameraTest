@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.penguinpistol.cameratest.R;
-import me.penguinpistol.cameratest.camera.FaceDirection;
-import me.penguinpistol.cameratest.camera.PhotoType;
+import me.penguinpistol.cameratest.v1.camera.FaceDirection;
+import me.penguinpistol.cameratest.v1.camera.PhotoType;
 import me.penguinpistol.cameratest.common.AlertDialog;
 import me.penguinpistol.cameratest.common.ListSpacingDecoration;
 import me.penguinpistol.cameratest.databinding.FragmentTakePictureV1ResultSideBinding;

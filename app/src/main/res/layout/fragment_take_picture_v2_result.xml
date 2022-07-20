@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="me.penguinpistol.cameratest.v2.camera.FaceDirection"/>
+        <variable
+            name="currentDirection"
+            type="FaceDirection" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_container_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_container_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="20dp"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_select_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8"/>
+
+        <me.penguinpistol.cameratest.common.PhotoView
+            android:id="@+id/iv_select"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guide_container_start"
+            app:layout_constraintEnd_toEndOf="@id/guide_select_end"
+            />
+
+        <me.penguinpistol.cameratest.common.PhotoView
+            android:id="@+id/iv_front"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:text="정면"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/iv_select"
+            app:layout_constraintEnd_toEndOf="@id/guide_container_end"
+            app:layout_constraintTop_toTopOf="@id/iv_select"
+            app:layout_constraintBottom_toTopOf="@id/iv_left_30"/>
+
+        <me.penguinpistol.cameratest.common.PhotoView
+            android:id="@+id/iv_left_30"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:text="좌30"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/iv_select"
+            app:layout_constraintEnd_toEndOf="@id/guide_container_end"
+            app:layout_constraintTop_toBottomOf="@id/iv_front"
+            app:layout_constraintBottom_toTopOf="@id/iv_left_45"/>
+
+        <me.penguinpistol.cameratest.common.PhotoView
+            android:id="@+id/iv_left_45"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:text="좌45"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/iv_select"
+            app:layout_constraintEnd_toEndOf="@id/guide_container_end"
+            app:layout_constraintTop_toBottomOf="@id/iv_left_30"
+            app:layout_constraintBottom_toTopOf="@id/iv_right_30"/>
+
+        <me.penguinpistol.cameratest.common.PhotoView
+            android:id="@+id/iv_right_30"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:text="우30"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/iv_select"
+            app:layout_constraintEnd_toEndOf="@id/guide_container_end"
+            app:layout_constraintTop_toBottomOf="@id/iv_left_45"
+            app:layout_constraintBottom_toTopOf="@id/iv_right_45"/>
+
+        <me.penguinpistol.cameratest.common.PhotoView
+            android:id="@+id/iv_right_45"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:text="우45"
+            app:layout_constraintStart_toEndOf="@id/iv_select"
+            app:layout_constraintEnd_toEndOf="@id/guide_container_end"
+            app:layout_constraintTop_toBottomOf="@id/iv_right_30"
+            app:layout_constraintBottom_toBottomOf="@id/iv_select"/>
+
+        <TextView
+            android:id="@+id/tv_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text='@{currentDirection.label + " 사진을 선택해주세요"}'
+            tools:text="정면 사진을 선택해주세요"
+            android:textSize="16dp"
+            app:layout_constraintTop_toBottomOf="@id/iv_select"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_photo"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/tv_label"
+            tools:listitem="@layout/item_take_picture_result"/>
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="16dp"
+            android:text="감지된 사진이 없습니다."
+            android:textSize="16dp"
+            android:gravity="center"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/tv_label"/>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/RoundButton"
+            android:id="@+id/btn_use_photo"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:text='@{currentDirection == FaceDirection.RIGHT_45 ? "선택완료" : "사진사용"}'
+            tools:text="사진사용"
+            android:enabled="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -2,7 +2,7 @@
 <layout>
 
     <data>
-        <import type="me.penguinpistol.cameratest.camera.PhotoType"/>
+        <import type="me.penguinpistol.cameratest.v1.camera.PhotoType"/>
         <variable
             name="photoType"
             type="PhotoType" />

@@ -1,4 +1,4 @@
-package me.penguinpistol.cameratest.camera;
+package me.penguinpistol.cameratest.v1.camera;
 
 public enum FaceDirection {
     FRONT(0),

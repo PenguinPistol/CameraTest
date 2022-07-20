@@ -1,4 +1,4 @@
-package me.penguinpistol.cameratest.camera;
+package me.penguinpistol.cameratest.v1.camera;
 
 import android.graphics.PointF;
 import android.graphics.RectF;
@@ -11,6 +11,8 @@ import com.google.mlkit.vision.face.FaceContour;
 
 import java.util.List;
 import java.util.Locale;
+
+import me.penguinpistol.cameratest.TestOption;
 
 public class FaceChecker {
     private final RectF mTargetRect;
@@ -81,12 +83,12 @@ public class FaceChecker {
             return false;
         }
 
-        boolean checkDownX = (-DetectionErrorValue.ANGLE_XZ.getValue() < x);
-        boolean checkUpX = (x < DetectionErrorValue.ANGLE_XZ.getValue());
-        boolean checkMinZ = -DetectionErrorValue.ANGLE_XZ.getValue() < z;
-        boolean checkMaxZ = z < DetectionErrorValue.ANGLE_XZ.getValue();
-        boolean checkMinY = mDirection.checkMin(y, DetectionErrorValue.ANGLE_Y.getValue());
-        boolean checkMaxY = mDirection.checkMax(y, DetectionErrorValue.ANGLE_Y.getValue());
+        boolean checkDownX = (-TestOption.angleXZ < x);
+        boolean checkUpX = (x < TestOption.angleXZ);
+        boolean checkMinZ = -TestOption.angleXZ < z;
+        boolean checkMaxZ = z < TestOption.angleXZ;
+        boolean checkMinY = mDirection.checkMin(y, TestOption.angleY);
+        boolean checkMaxY = mDirection.checkMax(y, TestOption.angleY);
 
         if(!checkDownX) {
             failureReason = DetectionFailure.PITCH_CW;
@@ -126,16 +128,16 @@ public class FaceChecker {
             debugText += String.format(Locale.getDefault(), "Distance: %f\n", distance);
             debugText += String.format(Locale.getDefault(), "Target center[%f, %f]\nFace center[%f, %f]\n", mTargetRect.centerX(), mTargetRect.centerY(), face.centerX(), face.centerY());
         }
-        boolean check = distance < DetectionErrorValue.POSITION.getValue();
+        boolean check = distance < TestOption.position;
 
         if(!check) {
-            if(face.centerX() - mTargetRect.centerX() < -DetectionErrorValue.POSITION.getValue()) {
+            if(face.centerX() - mTargetRect.centerX() < -TestOption.position) {
                 failureReason = DetectionFailure.MOVE_LEFT;
-            } else if(face.centerX() - mTargetRect.centerX() > DetectionErrorValue.POSITION.getValue()) {
+            } else if(face.centerX() - mTargetRect.centerX() > TestOption.position) {
                 failureReason = DetectionFailure.MOVE_RIGHT;
-            } else if(face.centerY() - mTargetRect.centerY() < -DetectionErrorValue.POSITION.getValue()) {
+            } else if(face.centerY() - mTargetRect.centerY() < -TestOption.position) {
                 failureReason = DetectionFailure.MOVE_DOWN;
-            } else if(face.centerY() - mTargetRect.centerY() > DetectionErrorValue.POSITION.getValue()) {
+            } else if(face.centerY() - mTargetRect.centerY() > TestOption.position) {
                 failureReason = DetectionFailure.MOVE_UP;
             }
         }
@@ -153,8 +155,8 @@ public class FaceChecker {
             debugText += String.format(Locale.getDefault(), "Face width: %f\nTarget width: %f\nFace ratio: %f\n", faceWidth, mTargetRect.width(), ratio);
         }
 
-        boolean minCheck = (1-DetectionErrorValue.WIDTH_RATIO.getValue()) < ratio;
-        boolean maxCheck = ratio < (1+DetectionErrorValue.WIDTH_RATIO.getValue());
+        boolean minCheck = (1-TestOption.widthRatio) < ratio;
+        boolean maxCheck = ratio < (1+TestOption.widthRatio);
 
         if(!minCheck) {
             failureReason = DetectionFailure.MORE_ZOOM_IN;
@@ -174,7 +176,7 @@ public class FaceChecker {
         if(isDebug) {
             debugText += String.format(Locale.getDefault(), "eyes open[%f, %f]\n", left, right);
         }
-        return left > DetectionErrorValue.EYE_OPEN.getValue() && right > DetectionErrorValue.EYE_OPEN.getValue();
+        return left > TestOption.eyesOpen && right > TestOption.eyesOpen;
     }
 
     // 얼굴 Landmark -> Rect 변환

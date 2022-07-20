@@ -1,4 +1,4 @@
-package me.penguinpistol.cameratest.common;
+package me.penguinpistol.cameratest.v1;
 
 import android.net.Uri;
 

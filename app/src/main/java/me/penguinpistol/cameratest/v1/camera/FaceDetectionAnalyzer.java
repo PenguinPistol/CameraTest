@@ -1,4 +1,4 @@
-package me.penguinpistol.cameratest.camera;
+package me.penguinpistol.cameratest.v1.camera;
 
 import android.graphics.RectF;
 import android.media.Image;

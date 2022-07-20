@@ -27,10 +27,9 @@ import java.util.concurrent.Executors;
 import java.util.function.BiConsumer;
 
 import me.penguinpistol.cameratest.common.AnalysisParameter;
-import me.penguinpistol.cameratest.camera.FaceDirection;
-import me.penguinpistol.cameratest.camera.PhotoType;
-import me.penguinpistol.cameratest.camera.SideFaceChecker;
-import me.penguinpistol.cameratest.TestOption;
+import me.penguinpistol.cameratest.v1.camera.FaceDirection;
+import me.penguinpistol.cameratest.v1.camera.PhotoType;
+import me.penguinpistol.cameratest.v1.camera.SideFaceChecker;
 
 public class TakePictureViewModel extends ViewModel {
     public static final String KEY_SIDE_TYPE = "SIDE_TYPE";

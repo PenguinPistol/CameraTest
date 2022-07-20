@@ -33,7 +33,7 @@
             android:layout_height="match_parent"
             android:id="@+id/preview"/>
 
-        <me.penguinpistol.cameratest.camera.GraphicOverlay
+        <me.penguinpistol.cameratest.v1.camera.GraphicOverlay
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/graphic_overlay"/>

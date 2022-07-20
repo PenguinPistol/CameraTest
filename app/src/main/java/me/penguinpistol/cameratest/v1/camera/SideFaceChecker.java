@@ -1,9 +1,11 @@
-package me.penguinpistol.cameratest.camera;
+package me.penguinpistol.cameratest.v1.camera;
 
 import android.util.Log;
 
 import com.google.mlkit.vision.face.Face;
 import com.google.mlkit.vision.face.FaceContour;
+
+import me.penguinpistol.cameratest.TestOption;
 
 public class SideFaceChecker {
     private FaceDirection mDirection;
@@ -52,11 +54,11 @@ public class SideFaceChecker {
 
         Log.d("CameraXHelper", String.format("angle[%f, %f, %f]", x, y, z));
 
-        boolean checkDownX = (-DetectionErrorValue.ANGLE_XZ.getValue() < x);
-        boolean checkUpX = (x < DetectionErrorValue.ANGLE_XZ.getValue());
-        boolean checkZ = (-DetectionErrorValue.ANGLE_XZ.getValue() < z) && (z < DetectionErrorValue.ANGLE_XZ.getValue());
-        boolean checkMinY = mDirection.checkMin(y, DetectionErrorValue.ANGLE_Y.getValue());
-        boolean checkMaxY = mDirection.checkMax(y, DetectionErrorValue.ANGLE_Y.getValue());
+        boolean checkDownX = (-TestOption.angleXZ < x);
+        boolean checkUpX = (x < TestOption.angleXZ);
+        boolean checkZ = (-TestOption.angleXZ < z) && (z < TestOption.angleXZ);
+        boolean checkMinY = mDirection.checkMin(y, TestOption.angleY);
+        boolean checkMaxY = mDirection.checkMax(y, TestOption.angleY);
 
         return checkDownX && checkUpX && checkZ && checkMinY && checkMaxY;
     }
@@ -69,6 +71,6 @@ public class SideFaceChecker {
     private boolean checkEyesOpen(float left, float right) {
         Log.d("CameraXHelper", String.format("eyes [%f, %f]", left, right));
 
-        return left > DetectionErrorValue.EYE_OPEN.getValue() && right > DetectionErrorValue.EYE_OPEN.getValue();
+        return left > TestOption.eyesOpen && right > TestOption.eyesOpen;
     }
 }

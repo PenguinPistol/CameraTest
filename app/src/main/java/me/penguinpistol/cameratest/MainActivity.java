@@ -17,11 +17,20 @@ public class MainActivity extends AppCompatActivity {
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
+        mBinding.switchCameraUp.setChecked(TestOption.isCameraUp);
         mBinding.switchCameraUp.setOnCheckedChangeListener((v, b) -> TestOption.isCameraUp = b);
 
+        mBinding.sliderAngleXz.setValue(TestOption.angleXZ);
         mBinding.sliderAngleXz.addOnChangeListener((slider, value, fromUser) -> TestOption.angleXZ = value);
+
+        mBinding.sliderAngleY.setValue(TestOption.angleY);
         mBinding.sliderAngleY.addOnChangeListener((slider, value, fromUser) -> TestOption.angleY = value);
+
+        mBinding.sliderPosition.setValue(TestOption.position);
         mBinding.sliderPosition.addOnChangeListener((slider, value, fromUser) -> TestOption.position = value);
+
+        mBinding.sliderEyes.setValue(TestOption.eyesOpen);
+        mBinding.sliderEyes.addOnChangeListener(((slider, value, fromUser) -> TestOption.eyesOpen = value));
 
         mBinding.btnStartV1.setOnClickListener(v -> start(TakePictureV1Activity.class));
         mBinding.btnStartV2.setOnClickListener(v -> start(TakePictureV2Activity.class));

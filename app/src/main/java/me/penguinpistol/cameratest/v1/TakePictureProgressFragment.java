@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.ArrayList;
 
 import me.penguinpistol.cameratest.R;
-import me.penguinpistol.cameratest.camera.PhotoType;
+import me.penguinpistol.cameratest.v1.camera.PhotoType;
 import me.penguinpistol.cameratest.databinding.FragmentTakePictureV1ProgressBinding;
 
 public class TakePictureProgressFragment extends Fragment {

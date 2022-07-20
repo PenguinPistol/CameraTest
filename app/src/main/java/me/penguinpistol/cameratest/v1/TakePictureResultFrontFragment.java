@@ -16,8 +16,8 @@ import com.bumptech.glide.Glide;
 import java.util.Arrays;
 
 import me.penguinpistol.cameratest.R;
-import me.penguinpistol.cameratest.camera.FaceDirection;
-import me.penguinpistol.cameratest.camera.PhotoType;
+import me.penguinpistol.cameratest.v1.camera.FaceDirection;
+import me.penguinpistol.cameratest.v1.camera.PhotoType;
 import me.penguinpistol.cameratest.databinding.FragmentTakePictureV1ResultFrontBinding;
 
 public class TakePictureResultFrontFragment extends Fragment {
