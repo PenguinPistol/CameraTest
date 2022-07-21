@@ -42,15 +42,13 @@ public class TakePictureFragment extends Fragment {
         mBinding = FragmentTakePictureV2Binding.inflate(inflater, container, false);
         mViewModel = new ViewModelProvider(requireActivity()).get(TakePictureViewModel.class);
 
-        if(TestOption.isCameraUp) {
-            changeGuidePos();
-        }
+        changeGuidePos();
 
         mCameraHelper = new CameraXHelper(requireActivity(), mBinding.preview);
-        mCameraHelper.startCamera(() -> {
-            AlertDialog dialog = new AlertDialog(requireActivity(), "자동촬영을 시작합니다.\n고개를 좌우로 천천히 움직여주세요.");
+        mCameraHelper.startCamera(mBinding.graphicOverlay, () -> {
+            AlertDialog dialog = new AlertDialog(requireActivity(), "점선안에 얼굴을 맞춰주세요");
             dialog.setOnDismissListener(dialogInterface -> {
-                startProcess();
+                startFrontFaceDetection();
             });
             dialog.show();
         });
@@ -83,7 +81,25 @@ public class TakePictureFragment extends Fragment {
         super.onDestroy();
     }
 
-    private void startProcess() {
+    private void startFrontFaceDetection() {
+        mBinding.graphicOverlay.setVisibility(View.VISIBLE);
+        mCameraHelper.startAnalysis(() -> {
+            AlertDialog dialog = new AlertDialog(requireActivity(), "자동촬영을 시작합니다.\n얼굴을 좌우로 천천히 돌려주세요");
+            dialog.setOnDismissListener(dialogInterface -> {
+                mBinding.graphicOverlay.setVisibility(View.GONE);
+
+                if(TestOption.usePrepare) {
+                    startPrepare();
+                } else {
+                    mBinding.groupProcessing.setVisibility(View.VISIBLE);
+                    mCameraHelper.startProcess(this::onComplete);
+                }
+            });
+            dialog.show();
+        });
+    }
+
+    private void startPrepare() {
         mBinding.progressPrepare.setProgress(PREPARE_TIME);
         mBinding.tvProgressTime.setText(String.valueOf(PREPARE_TIME));
 
@@ -126,7 +142,7 @@ public class TakePictureFragment extends Fragment {
     }
 
     private void changeGuidePos() {
-        float ratioBottom = 0.85F;
+        float ratioBottom = TestOption.cameraPos;
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(mBinding.getRoot());
         constraintSet.setGuidelinePercent(R.id.guideline_b, ratioBottom);

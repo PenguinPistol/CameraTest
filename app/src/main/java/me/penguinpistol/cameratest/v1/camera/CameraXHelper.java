@@ -37,6 +37,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import me.penguinpistol.cameratest.R;
+import me.penguinpistol.cameratest.TestOption;
 
 public class CameraXHelper {
     private static final Size CAPTURE_SIZE = new Size(720, 1280);
@@ -45,7 +46,6 @@ public class CameraXHelper {
     private static final String FILE_NAME_FORMAT    = "yyyyMMddHHmmssSSS";
     private static final int TAKE_PICTURE_TIME      = 5000;     // 자동촬영 시간
     private static final int TAKE_PICTURE_DELAY     = 500;      // 자동촬영 시작 딜레이
-    private static final int TAKE_PICTURE_PERIOD    = 100;      // 자동촬영 간격
 
     private PreviewView mPreviewView;
     private ImageCapture mImageCapture;
@@ -145,7 +145,7 @@ public class CameraXHelper {
         }
 
         mTakePictureScheduler = Executors.newSingleThreadScheduledExecutor();
-        mTakePictureScheduler.scheduleAtFixedRate(this::takePicture, TAKE_PICTURE_DELAY, TAKE_PICTURE_PERIOD, TimeUnit.MILLISECONDS);
+        mTakePictureScheduler.scheduleAtFixedRate(this::takePicture, TAKE_PICTURE_DELAY, TestOption.takeInterval, TimeUnit.MILLISECONDS);
 
         mCompleteScheduler = Executors.newSingleThreadScheduledExecutor();
         mCompleteScheduler.schedule(() -> {

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="me.penguinpistol.cameratest.TestOption"/>
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="20dp"
+        tools:context=".OptionActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="카메라 프리뷰 위치(작을수록 위로이동): "
+            android:text='@{"카메라 프리뷰 위치(작을수록 위로이동): " + TestOption.cameraPos}'/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_camera_pos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tickVisible="false"
+            android:stepSize="0.01"
+            android:valueFrom="0.6"
+            android:valueTo="1.4"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="자동촬영간격(초): "
+            android:text='@{"자동촬영간격(초): " + TestOption.getInterval()}'/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_take_interval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tickVisible="false"
+            android:stepSize="0.05"
+            android:valueFrom="0.1"
+            android:valueTo="1.0"/>
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/switch_use_prepare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="자동촬영 준비 활성화"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            android:alpha="0.2"
+            android:background="@color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="점선영역크기(작을수록 얼굴이 작게나옴): "
+            android:text='@{"점선영역크기(작을수록 얼굴이 작게나옴): " + TestOption.targetWidthRatio}'/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_target_width"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tickVisible="false"
+            android:stepSize="0.01"
+            android:valueFrom="0.1"
+            android:valueTo="1.0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="머리각도 오차값(고개숙임, 머리 좌우로 기울어짐): "
+            android:text='@{"머리각도 오차값(고개숙임, 머리 좌우로 기울어짐): " + TestOption.angleXZ}'/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_angle_xz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tickVisible="false"
+            android:stepSize="1.0"
+            android:valueFrom="0.0"
+            android:valueTo="20.0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="좌우각도 오차값(정면,30도,45도): "
+            android:text='@{"좌우각도 오차값(정면,30도,45도): " + TestOption.angleY}'/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_angle_y"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tickVisible="false"
+            android:stepSize="1.0"
+            android:valueFrom="0.0"
+            android:valueTo="20.0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="얼굴위치 오차값(얼굴과 점선영역 중심점): "
+            android:text='@{"얼굴위치 오차값(얼굴과 점선영역 중심점): " + TestOption.position}'/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tickVisible="false"
+            android:stepSize="0.1"
+            android:valueFrom="0.0"
+            android:valueTo="50.0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="눈 열림 감도(감음 0.0 ~ 1.0 뜸): "
+            android:text='@{"눈 열림 감도(감음 0.0 ~ 1.0 뜸): " + TestOption.eyesOpen}'/>
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/slider_eyes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tickVisible="false"
+            android:stepSize="0.01"
+            android:valueFrom="0.0"
+            android:valueTo="1.0"/>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/RoundButton"
+            android:id="@+id/btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="완료"
+            android:layout_gravity="center_horizontal"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>

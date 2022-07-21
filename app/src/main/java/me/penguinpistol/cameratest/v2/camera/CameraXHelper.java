@@ -8,6 +8,7 @@ import android.util.Size;
 import androidx.activity.ComponentActivity;
 import androidx.annotation.NonNull;
 import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.Preview;
@@ -26,19 +27,27 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import me.penguinpistol.cameratest.TestOption;
+
 public class CameraXHelper {
-    private static final Size IMAGE_SIZE = new Size(360, 640);
+    private static final Size IMAGE_SIZE = new Size(720, 1280);
     private static final Size CAPTURE_SIZE = new Size(720, 1280);
     private static final String FILE_NAME_FORMAT    = "yyyyMMddHHmmssSSS";
     private static final int TAKE_PICTURE_TIME      = 10000;                    // 자동촬영 시간(10s)
     private static final int TAKE_PICTURE_DELAY     = 500;                      // 자동촬영 시작 딜레이(0.5s)
-    private static final int TAKE_PICTURE_PERIOD    = 250;                      // 자동촬영 간격(0.25s)
 
+    private ProcessCameraProvider mCameraProvider;
     private ImageCapture mImageCapture;
+
+    private ImageAnalysis mImageAnalysis;
+    private FaceDetectionAnalyzer mAnalyzer;
+    private ExecutorService mAnalyzerExecutor;
+    private Runnable mOnDetected;
 
     private ScheduledExecutorService mTakePictureScheduler;
     private ScheduledExecutorService mCompleteScheduler;
@@ -55,7 +64,7 @@ public class CameraXHelper {
         this.mProcessResult = new ArrayList<>();
     }
 
-    public void startCamera(@NonNull Runnable onCameraStartCallback) {
+    public void startCamera(GraphicOverlay graphicOverlay, @NonNull Runnable onCameraStartCallback) {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(mActivity);
         cameraProviderFuture.addListener(() -> {
             try {
@@ -68,10 +77,29 @@ public class CameraXHelper {
                         .setTargetResolution(CAPTURE_SIZE)
                         .build();
 
+                mImageAnalysis = new ImageAnalysis.Builder()
+                        .setTargetResolution(IMAGE_SIZE)
+                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .build();
+
+                mAnalyzer = new FaceDetectionAnalyzer(graphicOverlay, () -> {
+                    mCameraProvider.unbind(mImageAnalysis);
+
+                    if(!mAnalyzerExecutor.isShutdown()) {
+                        mAnalyzerExecutor.shutdown();
+                        mAnalyzerExecutor = null;
+                    }
+
+                    if(mOnDetected != null) {
+                        mOnDetected.run();
+                    }
+                });
+                mAnalyzer.setImageSize(IMAGE_SIZE);
+
                 CameraSelector cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA;
-                ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-                cameraProvider.unbindAll();
-                cameraProvider.bindToLifecycle(mActivity, cameraSelector, preview, mImageCapture);
+                mCameraProvider = cameraProviderFuture.get();
+                mCameraProvider.unbindAll();
+                mCameraProvider.bindToLifecycle(mActivity, cameraSelector, preview, mImageCapture, mImageAnalysis);
 
                 onCameraStartCallback.run();
             } catch (ExecutionException | InterruptedException e) {
@@ -80,13 +108,25 @@ public class CameraXHelper {
         }, mMainExecutor);
     }
 
+    public void startAnalysis(@NonNull Runnable onDetected) {
+        if(mAnalyzerExecutor != null) {
+            mAnalyzerExecutor.shutdown();
+            mAnalyzerExecutor = null;
+        }
+
+        mOnDetected = onDetected;
+
+        mAnalyzerExecutor = Executors.newSingleThreadExecutor();
+        mImageAnalysis.setAnalyzer(mAnalyzerExecutor, mAnalyzer);
+    }
+
     public void startProcess(Consumer<List<Uri>> onCompleteCallback) {
         mProcessResult.clear();
 
         shutdownProcess();
 
         mTakePictureScheduler = Executors.newSingleThreadScheduledExecutor();
-        mTakePictureScheduler.scheduleAtFixedRate(this::takePicture, TAKE_PICTURE_DELAY, TAKE_PICTURE_PERIOD, TimeUnit.MILLISECONDS);
+        mTakePictureScheduler.scheduleAtFixedRate(this::takePicture, TAKE_PICTURE_DELAY, TestOption.takeInterval, TimeUnit.MILLISECONDS);
 
         mCompleteScheduler = Executors.newSingleThreadScheduledExecutor();
         mCompleteScheduler.schedule(() -> {

@@ -67,9 +67,7 @@ public class TakePictureSideFragment extends Fragment {
         mCameraHelper.setOnTakePictureCallback(this::onTakePicture);
         mCameraHelper.startCamera();
 
-        if(TestOption.isCameraUp) {
-            changeGuidePos();
-        }
+        changeGuidePos();
 
         return mBinding.getRoot();
     }

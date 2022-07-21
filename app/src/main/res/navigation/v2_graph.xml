@@ -24,6 +24,23 @@
         tools:layout="@layout/fragment_take_picture_v2_progress">
 
         <action
+            android:id="@+id/action_analysis_finish"
+            app:destination="@id/takePictureSelectPhotoFragment"
+            app:popUpTo="@id/takePictureFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/takePictureSelectPhotoFragment"
+        android:name="me.penguinpistol.cameratest.v2.TakePictureSelectPhotoFragment"
+        android:label="TakePictureResultFragment"
+        tools:layout="@layout/fragment_take_picture_v2_select_photo">
+
+        <action
+            android:id="@+id/action_retake"
+            app:destination="@id/takePictureFragment"
+            app:popUpTo="@id/takePictureFragment"/>
+        <action
             android:id="@+id/action_result"
             app:destination="@id/takePictureResultFragment"
             app:popUpTo="@id/takePictureFragment"/>
@@ -34,13 +51,7 @@
         android:id="@+id/takePictureResultFragment"
         android:name="me.penguinpistol.cameratest.v2.TakePictureResultFragment"
         android:label="TakePictureResultFragment"
-        tools:layout="@layout/fragment_take_picture_v2_result">
+        tools:layout="@layout/fragment_take_picture_v2_result"/>
 
-        <action
-            android:id="@+id/action_retake"
-            app:destination="@id/takePictureFragment"
-            app:popUpTo="@id/takePictureFragment"/>
-
-    </fragment>
 
 </navigation>

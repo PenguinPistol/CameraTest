@@ -31,6 +31,11 @@
             android:layout_height="match_parent"
             android:id="@+id/preview"/>
 
+        <me.penguinpistol.cameratest.v2.camera.GraphicOverlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/graphic_overlay"/>
+
     </FrameLayout>
 
     <com.google.android.material.progressindicator.CircularProgressIndicator

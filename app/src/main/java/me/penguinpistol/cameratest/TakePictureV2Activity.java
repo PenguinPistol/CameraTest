@@ -61,9 +61,7 @@ public class TakePictureV2Activity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         // 저장된 이미지 전체 삭제
-        for (Uri uri : mViewModel.getProcessResult()) {
-            mViewModel.removeFile(uri);
-        }
+        mViewModel.removeAllPhoto();
 
         super.onDestroy();
     }

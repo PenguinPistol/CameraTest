@@ -14,106 +14,35 @@
         android:paddingHorizontal="20dp"
         tools:context=".MainActivity">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            style="@style/RoundButton"
             android:id="@+id/btn_start_v1"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="각도별 나눠서 촬영하기"
+            android:layout_height="wrap_content"
+            android:text="정면/왼쪽/오른쪽 나눠서 촬영하기"
             app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/btn_start_v2"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
+            style="@style/RoundButton"
             android:id="@+id/btn_start_v2"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="한번에 촬영하기"
             app:layout_constraintTop_toBottomOf="@id/btn_start_v1"
-            app:layout_constraintBottom_toTopOf="@id/layout_options" />
+            app:layout_constraintBottom_toTopOf="@id/btn_option" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/layout_options"
+        <com.google.android.material.button.MaterialButton
+            style="@style/RoundButton"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:paddingBottom="36dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:orientation="vertical">
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_camera_up"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="카메라 올리기" />
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_square_camera"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:visibility="gone"
-                android:text="1:1 카메라" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="머리각도 오차값 [0 ~ 20]: "
-                android:text='@{"머리각도 오차값 [0 ~ 20]: " + TestOption.angleXZ}'/>
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_angle_xz"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tickVisible="false"
-                android:stepSize="1.0"
-                android:valueFrom="0.0"
-                android:valueTo="20.0"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="좌우각도 오차값 [0 ~ 20]: "
-                android:text='@{"좌우각도 오차값 [0 ~ 20]: " + TestOption.angleY}'/>
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_angle_y"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tickVisible="false"
-                android:stepSize="1.0"
-                android:valueFrom="0.0"
-                android:valueTo="20.0"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="위치 오차값(정면사진) [0 ~ 50]"
-                android:text='@{"위치 오차값(정면사진) [0 ~ 50]: " + TestOption.position}'/>
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_position"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tickVisible="false"
-                android:stepSize="0.1"
-                android:valueFrom="0.0"
-                android:valueTo="50.0"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="눈 열림 [0.0 ~ 1.0]"
-                android:text='@{"눈 열림 [0.0 ~ 1.0]: " + TestOption.eyesOpen}'/>
-
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider_eyes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tickVisible="false"
-                android:stepSize="0.01"
-                android:valueFrom="0.0"
-                android:valueTo="1.0"/>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:id="@+id/btn_option"
+            android:text="테스트 옵션 변경"
+            app:layout_constraintTop_toBottomOf="@id/btn_start_v2"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

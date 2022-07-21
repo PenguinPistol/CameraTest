@@ -37,9 +37,7 @@ public class TakePictureFragment extends Fragment {
         });
         mCameraHelper.startCamera();
 
-        if(TestOption.isCameraUp) {
-            changeGuidePos();
-        }
+        changeGuidePos();
 
         return mBinding.getRoot();
     }

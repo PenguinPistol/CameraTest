@@ -68,12 +68,12 @@
             app:launchSingleTop="true"/>
         <action
             android:id="@+id/action_result_final"
-            app:destination="@id/takePictureResultFragment"
+            app:destination="@id/takePictureSelectPhotoFragment"
             app:popUpTo="@id/takePictureFragment"/>
     </fragment>
 
     <fragment
-        android:id="@+id/takePictureResultFragment"
+        android:id="@+id/takePictureSelectPhotoFragment"
         android:name="me.penguinpistol.cameratest.v1.TakePictureResultFragment"
         android:label="TakePictureResultFragment"
         tools:layout="@layout/fragment_take_picture_v1_result"/>

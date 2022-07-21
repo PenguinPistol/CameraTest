@@ -16,7 +16,7 @@ public class FaceChecker {
      * -> 눈열림/입다뭄 판정<br/>
      * -> yaw 각도판정
      */
-    public FaceDirection check(Face face) {
+    public FaceDirection checkDirection(Face face) {
         FaceContour contour = face.getContour(FaceContour.FACE);
 
         if(contour == null) {
@@ -31,17 +31,13 @@ public class FaceChecker {
         boolean headAngle = checkAngle(face.getHeadEulerAngleX(), face.getHeadEulerAngleZ());
         boolean eyesOpen = checkEyesOpen(leftEyeOpen, rightEyeOpen);
 
-        Log.d("TakePicture", "face detection[head: " + headAngle + ", eyes: " + eyesOpen + "]");
         if(headAngle && eyesOpen) {
             float headY = face.getHeadEulerAngleY();
             for(FaceDirection dir : FaceDirection.values()) {
                 boolean checkMin = dir.checkMin(headY, TestOption.angleY);
                 boolean checkMax = dir.checkMax(headY, TestOption.angleY);
                 if(checkMin && checkMax) {
-                    Log.d("TakePicture", "detect direction >> " + dir);
                     return dir;
-                } else {
-                    Log.d("TakePicture", dir + "(" + dir.angle + ") failed >> [min: " + checkMin + ", max: " + checkMax + ", head: " + headY + "]");
                 }
             }
         }

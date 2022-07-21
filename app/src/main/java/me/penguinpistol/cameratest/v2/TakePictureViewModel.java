@@ -19,7 +19,6 @@ import com.google.mlkit.vision.face.FaceDetectorOptions;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +33,15 @@ public class TakePictureViewModel extends ViewModel {
     private NavController navController;
     private List<Uri> processResult;
     private Map<FaceDirection, List<Uri>> analysisResult;
+    private AnalysisParameter analysisParameter = new AnalysisParameter();
+
+    public void setAnalysisParameter(FaceDirection dir, Uri uri) {
+        analysisParameter.setImage(dir, uri);
+    }
+
+    public AnalysisParameter getAnalysisParameter() {
+        return analysisParameter;
+    }
 
     public NavController getNavController() {
         return navController;
@@ -49,6 +57,14 @@ public class TakePictureViewModel extends ViewModel {
 
     public void setProcessResult(List<Uri> processResult) {
         this.processResult = processResult;
+    }
+
+    public void removeAllPhoto() {
+        if(processResult != null) {
+            for (Uri uri : processResult) {
+                removeFile(uri);
+            }
+        }
     }
 
     public void removeFile(Uri uri) {
@@ -88,7 +104,7 @@ public class TakePictureViewModel extends ViewModel {
                                 if(faces.size() == 0) {
                                     Log.d("TakePicture", "face not found!!");
                                 } else {
-                                    FaceDirection dir = faceChecker.check(faces.get(0));
+                                    FaceDirection dir = faceChecker.checkDirection(faces.get(0));
                                     if(dir != null) {
                                         List<Uri> list = analysisResult.get(dir);
                                         if(list == null) {
